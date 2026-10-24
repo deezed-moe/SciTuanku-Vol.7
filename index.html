@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#371719">
+  <title>Operasi Rondaan Warden | SMSTJ</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand-lockup">
+      <img src="assets/logo-smstj.png" alt="Lencana Sekolah Menengah Sains Tuanku Jaafar" class="crest">
+      <div><p class="eyebrow">REKOD BERTUGAS <span>•</span> WARDEN</p><h1>OPERASI RONDAAN WARDEN</h1></div>
+    </div>
+    <div class="header-rule"><i></i><i></i><i></i><i></i><i></i></div>
+  </header>
+
+  <main class="page-shell">
+    <div class="page-heading"><span class="heading-marker"></span><h2>Sediakan OPR</h2></div>
+    <p class="page-intro">Isi butiran bertugas untuk menjana rekod OPR anda.</p>
+
+    <div class="workspace">
+      <form id="opr-form" class="form-panel">
+        <div class="panel-rule"><i></i><i></i><i></i><i></i><i></i></div>
+        <section class="form-section">
+          <div class="section-heading"><span>01</span><h3>Maklumat bertugas</h3></div>
+          <div class="form-grid">
+            <label class="field">Nama Warden Bertugas<select name="warden" id="warden" required>
+              <option value="" selected disabled>Pilih nama warden</option>
+              <option>ENCIK MOHD SHAHRULHAZRY BIN MD RAIS</option>
+              <option>EN. NOR IZUDDIN SHAH BIN NORDIN</option>
+              <option>EN. MOHD MUSLIMIN BIN MAT LATEH</option>
+              <option>EN. MUHAMMAD AZRAE BIN MOKHTAR</option>
+              <option>ENCIK AHMAD MURSYID BIN NORIZAN</option>
+              <option>CIK BALQIS NUR HANNI BINTI MOHAMAD NOR</option>
+              <option>CIK NADRAH BINTI LOKMAN</option>
+              <option>PN. ROHANA BINTI MASROM</option>
+              <option>PN. FARAH NAJIHAH BINTI OMAR</option>
+              <option>CIK FATIN NURUL AMIRAH BINTI MU'IN</option>
+              <option>CIK NORASHIKIN BINTI MOHD KHALIL</option>
+              <option>CIK AMIRA SYAFINE BINTI MOHD SUHAIMI</option>
+              <option>CIK UMMU HABIBAH BINTI MOHD ZUL</option>
+              <option>ENCIK KALI KANESH A/L GUNASEGARAN</option>
+              <option>EN. AHMAD AFIQ BIN ISMAIL</option>
+              <option>EN. TENGKU HASSAN BASRI BIN TENGKU HASNAN</option>
+              <option value="LAIN">LAIN</option>
+            </select></label>
+            <label class="field custom-warden-field" id="custom-warden-field" hidden>Nama warden lain<input name="customWarden" type="text" maxlength="120" autocomplete="name" placeholder="Masukkan nama penuh"></label>
+            <label class="field">Tarikh<input name="date" type="text" inputmode="numeric" autocomplete="off" maxlength="10" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" placeholder="dd/mm/yyyy" aria-describedby="date-hint" required><span class="field-hint" id="date-hint">Format tarikh: dd/mm/yyyy</span></label>
+            <label class="field">Masa<input name="time" type="time" required></label>
+            <label class="field field-wide">Tempat<input name="place" type="text" maxlength="120" placeholder="Lokasi rondaan / bertugas" required></label>
+            <div class="field field-wide">
+              <div class="field-label-row"><label for="notes">Catatan</label><button id="no-notes-button" class="no-notes-button" type="button">TIADA CATATAN</button></div>
+              <textarea id="notes" name="notes" rows="4" maxlength="1800" placeholder="Catatan aktiviti / pemerhatian" required></textarea>
+              <span class="field-hint">Ringkaskan catatan supaya muat dalam ruang laporan.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section photo-section">
+          <div class="section-heading"><span>02</span><h3>Gambar bertugas</h3></div>
+          <p class="hint">Muat naik empat gambar. Format JPG, PNG atau WebP, maksimum 12 MB setiap satu.</p>
+          <div class="photo-grid">
+            <label class="photo-slot"><span class="photo-number">Gambar 1</span><input type="file" accept="image/jpeg,image/png,image/webp" data-photo="0" required><span class="upload-prompt">Pilih gambar</span><span class="upload-preview"></span></label>
+            <label class="photo-slot"><span class="photo-number">Gambar 2</span><input type="file" accept="image/jpeg,image/png,image/webp" data-photo="1" required><span class="upload-prompt">Pilih gambar</span><span class="upload-preview"></span></label>
+            <label class="photo-slot"><span class="photo-number">Gambar 3</span><input type="file" accept="image/jpeg,image/png,image/webp" data-photo="2" required><span class="upload-prompt">Pilih gambar</span><span class="upload-preview"></span></label>
+            <label class="photo-slot"><span class="photo-number">Gambar 4</span><input type="file" accept="image/jpeg,image/png,image/webp" data-photo="3" required><span class="upload-prompt">Pilih gambar</span><span class="upload-preview"></span></label>
+          </div>
+        </section>
+
+        <aside class="signature-note"><span aria-hidden="true">✍</span><p>Tandatangan dibuat selepas OPR dicetak oleh warden bertugas, Guru Penolong Kanan Hal Ehwal Murid dan pengetua.</p></aside>
+        <div class="actions"><button id="submit-button" type="submit">Jana OPR <span aria-hidden="true">→</span><span class="spinner"></span></button><p class="privacy">PDF akan dimuat turun dan disimpan ke Google Drive.</p></div>
+        <div id="status" role="status" aria-live="polite"></div>
+      </form>
+
+      <section class="preview-panel" aria-labelledby="preview-heading">
+        <div class="preview-topline"><div><p class="preview-kicker">PRATONTON LANGSUNG</p><h2 id="preview-heading">Pratonton OPR</h2></div><span class="live-indicator"><i></i> LANGSUNG</span></div>
+        <p class="preview-help">Paparan ini dikemas kini semasa anda mengisi borang.</p>
+        <article class="opr-sheet" aria-live="polite" aria-label="Pratonton langsung borang OPR">
+          <div class="sheet-brand"><img src="assets/logo-smstj.png" alt=""><div><span>REKOD BERTUGAS · WARDEN</span><strong>OPERASI RONDAAN WARDEN</strong></div></div>
+          <div class="sheet-school">SEKOLAH MENENGAH SAINS TUANKU JAAFAR</div>
+          <div class="sheet-title">BORANG OPR</div>
+          <div class="sheet-subtitle">LAPORAN / REKOD AKTIVITI WARDEN</div>
+          <div class="sheet-info">
+            <div class="sheet-section-title">MAKLUMAT ASAS</div>
+            <div class="info-row"><b>Nama Warden Bertugas</b><span>:</span><div id="preview-warden" class="preview-value">—</div></div>
+            <div class="info-row date-row"><b>Tarikh</b><span>:</span><div id="preview-date" class="preview-value">—</div></div>
+            <div class="info-row"><b>Masa</b><span>:</span><div id="preview-time" class="preview-value">—</div></div>
+            <div class="info-row"><b>Tempat</b><span>:</span><div id="preview-place" class="preview-value">—</div></div>
+            <div class="info-row notes-row"><b>Catatan</b><span>:</span><div id="preview-notes" class="preview-value">—</div></div>
+          </div>
+          <div class="sheet-photos-title">RUANG GAMBAR (4 GAMBAR)</div>
+          <div class="sheet-photos">
+            <div class="sheet-photo"><img data-preview-photo="0" alt=""><span>GAMBAR 1</span></div>
+            <div class="sheet-photo"><img data-preview-photo="1" alt=""><span>GAMBAR 2</span></div>
+            <div class="sheet-photo"><img data-preview-photo="2" alt=""><span>GAMBAR 3</span></div>
+            <div class="sheet-photo"><img data-preview-photo="3" alt=""><span>GAMBAR 4</span></div>
+          </div>
+          <div class="sheet-signatures">
+            <div><b>WARDEN BERTUGAS</b><span>Tandatangan: ______________</span><span>Nama: ___________________</span><span>Tarikh: __________________</span></div>
+            <div><b>GURU PENOLONG KANAN HAL EHWAL MURID</b><span>Tandatangan: ______________</span><span>Nama: ___________________</span><span>Tarikh: __________________</span></div>
+            <div><b>PENGETUA</b><span>Tandatangan: ______________</span><span>Nama: ___________________</span><span>Tarikh: __________________</span></div>
+          </div>
+        </article>
+        <p class="preview-footnote">Tandatangan dibuat selepas PDF dicetak.</p>
+      </section>
+    </div>
+    <section class="archive-panel" aria-labelledby="archive-heading">
+      <div class="archive-heading-row"><div><p class="preview-kicker">ARKIB LAPORAN</p><h2 id="archive-heading">OPR terdahulu</h2><p class="archive-intro">Laporan disusun mengikut minggu. Muat turun satu PDF atau semua PDF dalam ZIP mingguan.</p></div><button class="refresh-button" id="refresh-archive" type="button">Muat semula</button></div>
+      <div id="archive-status" class="archive-status" role="status" aria-live="polite">Memuatkan arkib OPR…</div>
+      <div id="archive-list" class="archive-list"></div>
+    </section>
+    <footer>SMSTJ <span>·</span> Operasi Rondaan Warden</footer>
+  </main>
+</body>
+</html>
+
+
+
+

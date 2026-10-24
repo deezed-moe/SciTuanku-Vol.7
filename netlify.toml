@@ -1,0 +1,7 @@
+[build]
+  command = "mkdir -p public/assets netlify/functions && cp index.html app.js styles.css public/ && cp logo-smstj.png public/assets/ && cp list-oprs.js submit-opr.js download-opr.js netlify/functions/"
+  publish = "public"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

@@ -1,0 +1,11 @@
+UPLOAD THESE FILES TO THE REPOSITORY ROOT
+
+This package is intentionally arranged as one flat list of files. Do not make folders and do not upload the ZIP itself.
+
+In GitHub: open the repository connected to the Netlify site > Add file > Upload files > select all files extracted from this ZIP > commit to the production branch (usually main).
+
+The included netlify.toml runs a build command that creates public/ and netlify/functions/ on Netlify. In Netlify, leave Base directory blank.
+
+After the commit, wait for Netlify's new production deploy to finish, then open the original OPR website and click Muat semula in OPR terdahulu.
+
+If the environment variables were already set, keep them: APPS_SCRIPT_URL and APPS_SCRIPT_SHARED_TOKEN (Functions scope).
